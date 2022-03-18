@@ -71,23 +71,18 @@ class GpsActivityFragment : Fragment() {
         }
 
         fragBinding.stopLocation.setOnClickListener {
+            val points = locationService.getLocations()
             locationService.stopLocationService()
+
+            points.forEach {
+                Timber.i("${it.timestamp} : ${it.lat}, ${it.lng}, ${it.altitude}")
+            }
         }
 
         if (ActivityCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
-
-        /*fragBinding.getLocation.setOnClickListener {
-            if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                fusedLocationClient.lastLocation.addOnSuccessListener {
-                    fragBinding.location.setText("${it?.latitude}, ${it?.longitude}, ${it?.altitude}")
-                }
-            } else {
-                permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-            }
-        }*/
 
         return fragBinding.root
     }
