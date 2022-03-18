@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".fragments.GpsActivityFragment">
 
     <TextView
@@ -13,8 +15,13 @@
         android:textSize="24sp"
         android:textStyle="bold" />
     <Button
-        android:id="@+id/getLocation"
-        android:text="Get location"
+        android:id="@+id/startLocation"
+        android:text="Start Location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/stopLocation"
+        android:text="Stop Location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

@@ -3,11 +3,6 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        repositories {
-            maven {
-                url "https://highsoft.bintray.com/Highcharts"
-            }
-        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.1.2'
