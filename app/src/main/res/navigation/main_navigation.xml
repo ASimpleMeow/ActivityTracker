@@ -9,5 +9,18 @@
         android:id="@+id/overviewFragment"
         android:name="org.wit.activitytracker.fragments.OverviewFragment"
         android:label="fragment_overview"
-        tools:layout="@layout/fragment_overview" />
+        tools:layout="@layout/fragment_overview" >
+        <action
+            android:id="@+id/action_overviewFragment_to_gpsActivityFragment"
+            app:destination="@id/gpsActivityFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gpsActivityFragment"
+        android:name="org.wit.activitytracker.fragments.GpsActivityFragment"
+        android:label="fragment_gps_activity"
+        tools:layout="@layout/fragment_gps_activity">
+        <action
+            android:id="@+id/action_gpsActivityFragment_to_overviewFragment"
+            app:destination="@id/overviewFragment" />
+    </fragment>
 </navigation>
