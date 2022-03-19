@@ -8,19 +8,35 @@
     <fragment
         android:id="@+id/overviewFragment"
         android:name="org.wit.activitytracker.fragments.OverviewFragment"
-        android:label="fragment_overview"
+        android:label="Overview"
         tools:layout="@layout/fragment_overview" >
         <action
-            android:id="@+id/action_overviewFragment_to_gpsActivityFragment"
-            app:destination="@id/gpsActivityFragment" />
+            android:id="@+id/action_overviewFragment_to_activityTypeListFragment"
+            app:destination="@id/activityTypeListFragment" />
     </fragment>
     <fragment
         android:id="@+id/gpsActivityFragment"
         android:name="org.wit.activitytracker.fragments.GpsActivityFragment"
-        android:label="fragment_gps_activity"
+        android:label="GPS Activity"
         tools:layout="@layout/fragment_gps_activity">
         <action
-            android:id="@+id/action_gpsActivityFragment_to_overviewFragment"
-            app:destination="@id/overviewFragment" />
+            android:id="@+id/action_gpsActivityFragment_to_activityTypeListFragment"
+            app:destination="@id/activityTypeListFragment"
+            app:popUpTo="@id/activityTypeListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/activityTypeListFragment"
+        android:name="org.wit.activitytracker.fragments.ActivityTypeListFragment"
+        android:label="Activity List"
+        tools:layout="@layout/fragment_activity_type_list" >
+        <action
+            android:id="@+id/action_activityTypeListFragment_to_gpsActivityFragment"
+            app:destination="@id/gpsActivityFragment" />
+        <action
+            android:id="@+id/action_activityTypeListFragment_to_overviewFragment"
+            app:destination="@id/overviewFragment"
+            app:popUpTo="@id/overviewFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

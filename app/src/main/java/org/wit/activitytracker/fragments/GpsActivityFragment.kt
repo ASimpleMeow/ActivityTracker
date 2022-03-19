@@ -89,14 +89,7 @@ class GpsActivityFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _fragBinding = null
         requireContext().unbindService(serviceConnection)
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            OverviewFragment().apply {
-                arguments = Bundle().apply {}
-            }
     }
 }

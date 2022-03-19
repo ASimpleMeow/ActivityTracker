@@ -9,25 +9,39 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".activities.Home">
+        android:layout_height="match_parent">
+       <com.google.android.material.appbar.AppBarLayout
+           android:id="@+id/appBarLayout"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <com.google.android.material.appbar.MaterialToolbar
+               android:layout_width="match_parent"
+               android:layout_height="?attr/actionBarSize"
+               android:id="@+id/topActionBar"
+               app:title="Activity Tracker"/>
+
+       </com.google.android.material.appbar.AppBarLayout>
 
         <fragment
             android:id="@+id/nav_host_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/appBarLayout"
             app:defaultNavHost="true"
             app:navGraph="@navigation/main_navigation" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        app:menu="@menu/nav_drawer_menu"
+        android:fitsSystemWindows="true"
         android:layout_gravity="start" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
