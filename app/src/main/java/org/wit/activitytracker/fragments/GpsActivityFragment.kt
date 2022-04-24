@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import org.wit.activitytracker.databinding.FragmentGpsActivityBinding
+import org.wit.activitytracker.models.ActivityType
 import org.wit.activitytracker.services.LocationService
 import timber.log.Timber
 
@@ -29,6 +30,7 @@ class GpsActivityFragment : Fragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var permissionLauncher: ActivityResultLauncher<String>
     private lateinit var locationService: LocationService
+    private lateinit var activityType: ActivityType
 
     private val serviceConnection = object: ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, iBinder: IBinder?) {
@@ -43,17 +45,18 @@ class GpsActivityFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activityType = arguments?.getSerializable("activityType") as ActivityType
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         permissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { isGranted ->
             if (isGranted) {
                 // Do if the permission is granted
-                Timber.i("KETTLE have permission")
+                Timber.i("GPS has permission")
             }
             else {
                 // Do otherwise
-                Timber.i("KETTLE no have permission")
+                Timber.i("GPS doesn't have permission")
             }
         }
     }
@@ -70,7 +73,7 @@ class GpsActivityFragment : Fragment() {
             locationService.startLocationService()
         }
 
-        fragBinding.stopLocation.setOnClickListener {
+        fragBinding.finish.setOnClickListener {
             val points = locationService.getLocations()
             locationService.stopLocationService()
 
@@ -78,6 +81,8 @@ class GpsActivityFragment : Fragment() {
                 Timber.i("${it.timestamp} : ${it.lat}, ${it.lng}, ${it.altitude}")
             }
         }
+
+        fragBinding.title.text = activityType.typeName
 
         if (ActivityCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

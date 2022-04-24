@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".fragments.GpsActivityFragment">
+    tools:context=".fragments.CounterActivityFragment">
 
     <TextView
         android:id="@+id/title"
@@ -13,11 +13,12 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:textStyle="bold" />
-    <Button
-        android:id="@+id/startLocation"
-        android:text="@string/btn_start_location"
+    
+    <NumberPicker
+        android:id="@+id/counter"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
+
     <Button
         android:id="@+id/finish"
         android:text="@string/btn_finish_activity"

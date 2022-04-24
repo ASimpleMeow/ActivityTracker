@@ -24,6 +24,9 @@
             app:destination="@id/activityTypeListFragment"
             app:popUpTo="@id/activityTypeListFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="activityType"
+            app:argType="org.wit.activitytracker.models.ActivityType" />
     </fragment>
     <fragment
         android:id="@+id/activityTypeListFragment"
@@ -38,5 +41,22 @@
             app:destination="@id/overviewFragment"
             app:popUpTo="@id/overviewFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_activityTypeListFragment_to_counterActivityFragment"
+            app:destination="@id/counterActivityFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/counterActivityFragment"
+        android:name="org.wit.activitytracker.CounterActivityFragment"
+        android:label="fragment_counter_activity"
+        tools:layout="@layout/fragment_counter_activity" >
+        <action
+            android:id="@+id/action_counterActivityFragment_to_activityTypeListFragment"
+            app:destination="@id/activityTypeListFragment"
+            app:popUpTo="@id/activityTypeListFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="activityType"
+            app:argType="org.wit.activitytracker.models.ActivityType" />
     </fragment>
 </navigation>
