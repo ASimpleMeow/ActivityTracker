@@ -7,9 +7,11 @@ import java.util.*
 
 @Parcelize
 data class Activity(
-    var start: Date = Date(),
-    var stop: Date = Date(),
+    var id: Long = 0L,
+    var start: Date? = Date(),
+    var stop: Date? = Date(),
     var type: ActivityType = ActivityType.WALKING,
     var path: Path = Path(),
+    var count: Int = 0,
     var comment: String = "",
 ): Parcelable

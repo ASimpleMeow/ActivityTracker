@@ -13,6 +13,12 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:textStyle="bold" />
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textStyle="bold" />
     <Button
         android:id="@+id/startLocation"
         android:text="@string/btn_start_location"

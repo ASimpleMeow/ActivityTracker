@@ -28,6 +28,8 @@ const val LOCATION_SERVICE_ID = 175
 
 class LocationService : Service() {
 
+    private var startDate: Date? = null
+    private var endDate: Date? = null
     private val locations: MutableList<Point> = ArrayList()
     private val localBinder = LocalBinder()
     private val locationCallback = object: LocationCallback() {
@@ -50,9 +52,19 @@ class LocationService : Service() {
         return ArrayList(locations)
     }
 
+    fun getStartDate(): Date? {
+        return startDate
+    }
+
+    fun getEndDate(): Date? {
+        return endDate
+    }
+
     fun startLocationService() {
         Timber.i("Location Service Starting")
         locations.clear()
+        startDate = Date()
+        endDate = null
         val channelId = "location_notification_channel"
         val notificationManager: NotificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -94,6 +106,7 @@ class LocationService : Service() {
 
     fun stopLocationService() {
         Timber.i("Location Service Stopping")
+        endDate = Date()
         locations.clear()
         LocationServices.getFusedLocationProviderClient(this).removeLocationUpdates(locationCallback)
         stopForeground(true)

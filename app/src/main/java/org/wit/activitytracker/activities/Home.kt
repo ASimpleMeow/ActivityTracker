@@ -10,6 +10,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import org.wit.activitytracker.R
 import org.wit.activitytracker.databinding.HomeBinding
+import org.wit.activitytracker.models.ActivityStore
+import org.wit.activitytracker.models.JSONActivityStore
 import timber.log.Timber
 
 class Home : AppCompatActivity() {

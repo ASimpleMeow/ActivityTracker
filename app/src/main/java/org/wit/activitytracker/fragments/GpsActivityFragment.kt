@@ -15,10 +15,15 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import org.wit.activitytracker.R
 import org.wit.activitytracker.databinding.FragmentGpsActivityBinding
+import org.wit.activitytracker.main.MainApp
+import org.wit.activitytracker.models.Activity
 import org.wit.activitytracker.models.ActivityType
+import org.wit.activitytracker.models.map.Path
 import org.wit.activitytracker.services.LocationService
 import timber.log.Timber
 
@@ -27,6 +32,7 @@ class GpsActivityFragment : Fragment() {
     private var _fragBinding: FragmentGpsActivityBinding? = null
     private val fragBinding get() = _fragBinding!!
 
+    private lateinit var app: MainApp
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var permissionLauncher: ActivityResultLauncher<String>
     private lateinit var locationService: LocationService
@@ -45,6 +51,7 @@ class GpsActivityFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        app = activity?.application as MainApp
         activityType = arguments?.getSerializable("activityType") as ActivityType
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         permissionLauncher = registerForActivityResult(
@@ -75,14 +82,26 @@ class GpsActivityFragment : Fragment() {
 
         fragBinding.finish.setOnClickListener {
             val points = locationService.getLocations()
+            val startDate = locationService.getStartDate()
+            val endDate = locationService.getEndDate()
             locationService.stopLocationService()
 
             points.forEach {
                 Timber.i("${it.timestamp} : ${it.lat}, ${it.lng}, ${it.altitude}")
             }
+            val activity = Activity()
+            activity.apply {
+                this.start = startDate
+                this.stop = endDate
+                this.type = activityType
+                this.path = Path(points)
+            }
+            app.activityStore.create(activity)
+            this.findNavController().navigate(R.id.action_gpsActivityFragment_to_overviewFragment)
         }
 
         fragBinding.title.text = activityType.typeName
+        fragBinding.description.text = activityType.description
 
         if (ActivityCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
