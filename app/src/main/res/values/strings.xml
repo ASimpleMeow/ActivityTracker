@@ -5,4 +5,11 @@
     <string name="btn_finish_activity">Finish Activity</string>
 
     <string name="menu_track_activity">Track An Activity</string>
+    <string name="menu_cancel">Cancel</string>
+    <string name="menu_delete">Delete</string>
+    <string name="menu_save">Save</string>
+
+    <string name="activity_detail_start_date">Start Date Time:</string>
+    <string name="activity_detail_end_date">End Date Time:</string>
+    <string name="activity_detail_count">Count:</string>
 </resources>

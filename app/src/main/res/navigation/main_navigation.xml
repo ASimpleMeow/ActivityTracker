@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_overviewFragment_to_activityTypeListFragment"
             app:destination="@id/activityTypeListFragment" />
+        <action
+            android:id="@+id/action_overviewFragment_to_activityDetailFragment"
+            app:destination="@id/activityDetailFragment" />
+        <argument
+            android:name="activity"
+            app:argType="org.wit.activitytracker.models.Activity" />
     </fragment>
     <fragment
         android:id="@+id/gpsActivityFragment"
@@ -48,13 +54,24 @@
     <fragment
         android:id="@+id/counterActivityFragment"
         android:name="org.wit.activitytracker.fragments.CounterActivityFragment"
-        android:label="fragment_counter_activity"
+        android:label="Counter Activity"
         tools:layout="@layout/fragment_counter_activity" >
         <argument
             android:name="activityType"
             app:argType="org.wit.activitytracker.models.ActivityType" />
         <action
             android:id="@+id/action_counterActivityFragment_to_overviewFragment"
+            app:destination="@id/overviewFragment"
+            app:popUpTo="@id/overviewFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/activityDetailFragment"
+        android:name="org.wit.activitytracker.fragments.ActivityDetailFragment"
+        android:label="Activity Detail"
+        tools:layout="@layout/fragment_activity_detail" >
+        <action
+            android:id="@+id/action_activityDetailFragment_to_overviewFragment"
             app:destination="@id/overviewFragment"
             app:popUpTo="@id/overviewFragment"
             app:popUpToInclusive="true" />
