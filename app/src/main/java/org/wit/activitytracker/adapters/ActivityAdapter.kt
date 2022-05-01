@@ -5,12 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.wit.activitytracker.databinding.CardActivityBinding
 import org.wit.activitytracker.models.Activity
+import timber.log.Timber
 
 interface ActivityListener {
     fun onActivityClick(activity: Activity)
 }
 
-class ActivityAdapter constructor(private val activities: List<Activity>,
+class ActivityAdapter constructor(private val activities: ArrayList<Activity>,
                                   private val listener: ActivityListener): RecyclerView.Adapter<ActivityAdapter.MainHolder>() {
 
 
@@ -26,9 +27,15 @@ class ActivityAdapter constructor(private val activities: List<Activity>,
 
     override fun getItemCount(): Int = activities.size
 
+    fun removeAt(position: Int) {
+        activities.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     class MainHolder(private val binding: CardActivityBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(activity: Activity, listener: ActivityListener) {
+            binding.root.tag = activity.id
             binding.activityTitle.text = activity.type.typeName
             binding.activityDescription.text = activity.type.description
             binding.startDate.text = activity.start?.toString()

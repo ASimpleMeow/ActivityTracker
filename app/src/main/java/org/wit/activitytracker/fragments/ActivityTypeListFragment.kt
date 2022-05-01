@@ -42,4 +42,5 @@ class ActivityTypeListFragment: Fragment(), ActivityTypeListener {
         val bundle = bundleOf("activityType" to activityType)
         this.findNavController().navigate(activityType.resId, bundle)
     }
+
 }

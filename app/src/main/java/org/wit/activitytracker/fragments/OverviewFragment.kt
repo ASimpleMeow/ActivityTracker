@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.data.*
@@ -22,8 +25,9 @@ import org.wit.activitytracker.databinding.FragmentOverviewBinding
 import org.wit.activitytracker.main.MainApp
 import org.wit.activitytracker.models.Activity
 import org.wit.activitytracker.models.ActivityType
+import org.wit.activitytracker.utils.SwipeToDeleteCallback
 import timber.log.Timber
-import kotlin.random.Random
+import kotlin.collections.ArrayList
 
 class OverviewFragment : Fragment(), ActivityListener {
 
@@ -45,6 +49,16 @@ class OverviewFragment : Fragment(), ActivityListener {
             findNavController().navigate(R.id.action_overviewFragment_to_activityTypeListFragment)
         }
         renderActivities(app.activityStore.findAll())
+        val swipeDeleteHandler = object: SwipeToDeleteCallback(requireContext()) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val adapter = fragBinding.recyclerView.adapter as ActivityAdapter
+                adapter.removeAt(viewHolder.adapterPosition)
+                app.activityStore.delete(viewHolder.itemView.tag as Long)
+                Toast.makeText(requireContext(), "Deleted Activity", Toast.LENGTH_SHORT).show()
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipeDeleteHandler)
+        itemTouchHelper.attachToRecyclerView(fragBinding.recyclerView)
         val barChart = configureOverviewChart()
         barChart.setOnChartValueSelectedListener(object: OnChartValueSelectedListener {
             override fun onValueSelected(e: Entry?, h: Highlight?) {
@@ -106,7 +120,7 @@ class OverviewFragment : Fragment(), ActivityListener {
     }
 
     private fun renderActivities(activities: List<Activity>) {
-        val activitiesToRender = activities.sortedByDescending { it.start }
+        val activitiesToRender = ArrayList(activities.sortedByDescending { it.start })
         val layoutManager = LinearLayoutManager(requireContext())
         fragBinding.recyclerView.layoutManager = layoutManager
         fragBinding.recyclerView.adapter = ActivityAdapter(activitiesToRender, this)

@@ -4,7 +4,10 @@
     <string name="btn_start_location">Start Location Tracking</string>
     <string name="btn_finish_activity">Finish Activity</string>
 
+    <string name="menu_overview">Overview</string>
     <string name="menu_track_activity">Track An Activity</string>
+    <string name="menu_about">About</string>
+
     <string name="menu_cancel">Cancel</string>
     <string name="menu_delete">Delete</string>
     <string name="menu_save">Save</string>
@@ -12,4 +15,14 @@
     <string name="activity_detail_start_date">Start Date Time:</string>
     <string name="activity_detail_end_date">End Date Time:</string>
     <string name="activity_detail_count">Count:</string>
+
+    <string name="about_title">About ActivityTracker</string>
+    <string name="about_textA">
+        The ActivityTracker application is a simple open-source android app that aims to help you
+        track your physical activities.
+    </string>
+    <string name="about_textB">
+        The tracked activity data does not leave your device,
+        and the only networking requirement is GoogleMaps services to display the gathered GPS data.
+    </string>
 </resources>

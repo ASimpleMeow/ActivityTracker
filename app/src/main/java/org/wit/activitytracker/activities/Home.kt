@@ -33,10 +33,7 @@ class Home : AppCompatActivity() {
         val materialToolbar = homeBinding.topActionBar
         setSupportActionBar(materialToolbar)
 
-        appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.overviewFragment,
-            R.id.activityTypeListFragment),
-            drawerLayout)
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.overviewFragment), drawerLayout)
 
         val navController = findNavController(R.id.nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)

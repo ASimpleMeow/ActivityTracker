@@ -5,8 +5,19 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/overviewFragment"
+            android:title="@string/menu_overview" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
             android:id="@+id/activityTypeListFragment"
             android:title="@string/menu_track_activity" />
+    </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/aboutFragment"
+            android:title="@string/menu_about" />
     </group>
 
 </menu>
